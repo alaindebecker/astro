@@ -39,6 +39,7 @@ read = function(response, star){
 			x -= Number(line.substring(44,46)/60)
 		else
 			x += Number(line.substring(44,46)/60)
+		//x = Math.tan(x/180*Math.PI)
 		data[star].push(x)
 	}
 	i = stars.indexOf(star)+1
@@ -52,9 +53,10 @@ draw = function(){
 	g.width  = width  = g.offsetWidth
 	g.height = height = g.width /4
 	g = g.getContext("2d")
-	g.font = "20px monospace"
+	g.font = "18px calibri"
 	g.textAlign = "center"
 	g.textBaseline = "top"
+	g.textBaseline = "middle"
 	
 	g.beginPath()
 	g.moveTo(0,height-20)
@@ -63,21 +65,33 @@ draw = function(){
 	
 	symbol = "☼"
 	for(star of Object.keys(data)){
-		console.log(star)
-		if(star=="p:Soleil")
-			symbol = "🌞"
-		else if (star=="s:Moon")
-			symbol = "☾"
+		start = true
 		
+		g.beginPath()
+		g.strokeStyle = "lightgrey"
 		for(i=0; i<25; i++)
 			if(data[star][i]>=-10){
-			t = width*i/24
-			x = height - data[star][i] * height/90 - 40 
-			g.fillText(symbol, t, x)
-			g.fillText((i+2)%24, t, height-20)
-		}
+				t = width*i/24
+				x = height - data[star][i] * height/90 - 40 
+				x = height - data[star][i] * height/90 - 40 
+				if(start){
+					g.moveTo(t, x)
+					start = false
+				}
+				g.lineTo(t, x)
+			}
+		g.stroke()
+		
+		symbol =(star=="p:Soleil") ? "🌞" : "☾"
+		for(i=0; i<25; i++)
+			if(data[star][i]>=-10){
+				t = width*i/24
+				x = height - data[star][i] * height/90 - 40 
+				g.fillText(symbol, t, x)
+				g.fillText((i+2)%24, t, height-10)
+			}
 	}
 	g.stroke()
-	g.fill()
+	//g.fill()
 }
 </script>
