@@ -20,7 +20,7 @@ onresize = function() {
 }
 miriade = function(star){
 	date = document.querySelector('input[type="date"]').value
-	url = "http://vo.imcce.fr/webservices/miriade/ephemcc_query.php?-nbd=25&-step=1h&-mime=text&-observer=4.4990169+44.0932903+282.26&-tcoor=3"
+	url = "https://vo.imcce.fr/webservices/miriade/ephemcc_query.php?-nbd=25&-step=1h&-mime=text&-observer=4.4990169+44.0932903+282.26&-tcoor=3"
 	url += "&-ep="+date
 	url += "&-name="+star
 	http = new XMLHttpRequest()
